@@ -25,3 +25,46 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+
+.backgroundDarkColor {
+  background-color: #4F4A45;
+}
+
+.backgroundLightColor {
+  background-color: #6C5F5B;
+}
+
+.itemColor {
+  background-color: #ED7D31;
+}
+
+.textColor {
+  color: #F6F1EE;
+}
+
+.myBorder {
+  border: 2px solid #F6F1EE;
+}
+
+.navItem {
+  padding: 8px 20px;
+}
+
+.navItem:hover {
+  background-color: #4F4A45;
+  color: #F6F1EE;
+}
+
+.event-card {
+  /* Set maximum height and hide overflow */
+  max-height: 400px; /* Adjust this value as needed */
+  overflow: hidden;
+}
+
+.description {
+  /* Enable text overflow with ellipsis */
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
