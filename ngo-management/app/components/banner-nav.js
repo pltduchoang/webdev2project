@@ -16,8 +16,7 @@ export default function BannerNav({currentPage}) {
       ]);
     } else {
       setButtonList([
-        { name: "Sign In", link: "/", onClick: null }, // Provide the link for Sign In
-        { name: "Sign Up", onClick: null }
+        { name: "Sign In/ Sign Up", link: "/", onClick: null }, // Provide the link for Sign In
       ]);
     }
   }, [user, firebaseSignOut]);

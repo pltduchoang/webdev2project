@@ -54,7 +54,7 @@ export default function RegisterForm({event, formTitle, isSubmitted}) {
         };
 
     await updateEvent(event);    
-    isSubmitted(true);
+    isSubmitted();
 
 
     // Reset form fields after submission (if needed)

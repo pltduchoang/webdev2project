@@ -4,7 +4,7 @@ import { useUserAuth } from "../_utils/auth-context";
 import { updateEvent } from "../_services/event-services";
 
 
-export default function EventCard({ event, showDetails, passAttend, passVolunteer, }) {
+export default function EventCard({ event, showDetails, passAttend, passVolunteer, passLoginRequest}) {
     const { user } = useUserAuth();
     const [eventAttendedCheck, setEventAttendedCheck] = useState(false);
     const [eventVolunteeredCheck, setEventVolunteeredCheck] = useState(false);
@@ -12,16 +12,19 @@ export default function EventCard({ event, showDetails, passAttend, passVoluntee
     
     const HandleAttend = () => {
         passAttend(event);
-    }
+    };
 
     const HandleVolunteer = () => {
         passVolunteer(event);
-    }
+    };
 
     const handleDetail = () => {
         showDetails(event);
-    }
+    };
 
+    const HandleQuickLogin = () => {
+        passLoginRequest(true);
+    };
 
     useEffect(() => {
         if (event){
@@ -83,9 +86,10 @@ export default function EventCard({ event, showDetails, passAttend, passVoluntee
                         </div>
                     </div>
 
+                    {user ? (
                     <div className="flex flex-row w-full">
                         {eventAttendedCheck ? (
-                            <button onClick={(e)=> {e.stopPropagation(); HandleUnAttend()}} className="w-1/2 rounded-md opacity-90 m-2 ml-0 p-2 textColor myBorder transition duration-300 ease-in-out opacity:80 hover:opacity-100 bg-stone-500 hover:bg-stone-700">
+                        <button onClick={(e)=> {e.stopPropagation(); HandleUnAttend()}} className="w-1/2 rounded-md opacity-90 m-2 ml-0 p-2 textColor myBorder transition duration-300 ease-in-out opacity:80 hover:opacity-100 bg-stone-500 hover:bg-stone-700">
                             UnAttend
                         </button>
                         ) : (
@@ -94,7 +98,7 @@ export default function EventCard({ event, showDetails, passAttend, passVoluntee
                         </button>
                         )}
                         {eventVolunteeredCheck ? (
-                            <button onClick={(e)=> {e.stopPropagation(); HandleUnVolunteer()}} className="w-1/2 rounded-md opacity-90 m-2 ml-0 p-2 textColor myBorder transition duration-300 ease-in-out opacity:80 hover:opacity-100 bg-stone-500 hover:bg-stone-700">
+                        <button onClick={(e)=> {e.stopPropagation(); HandleUnVolunteer()}} className="w-1/2 rounded-md opacity-90 m-2 ml-0 p-2 textColor myBorder transition duration-300 ease-in-out opacity:80 hover:opacity-100 bg-stone-500 hover:bg-stone-700">
                             UnVolunteer
                         </button>
                         ) : (
@@ -103,6 +107,18 @@ export default function EventCard({ event, showDetails, passAttend, passVoluntee
                         </button>
                         )}
                     </div>
+                    )
+                    : (
+                    <div className="pt-4">
+                        <hr/>
+                        <p className="textColor pt-4">To attend or volunteer, please log in!</p>
+                        <div className="flex justify-center">
+                            <button onClick={(e)=> {e.stopPropagation(); HandleQuickLogin()}} className="w-1/2 rounded-md opacity-90 m-2 ml-0 p-2 textColor myBorder transition duration-300 ease-in-out opacity:80 hover:opacity-100 hover:bg-stone-500">
+                                Log In
+                            </button> 
+                        </div>
+                    </div>
+                    )}
 
                 </div>
             </div>

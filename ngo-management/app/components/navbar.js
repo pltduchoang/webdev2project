@@ -36,7 +36,7 @@ export default function Navbar({currentPage}) {
                     subNav: [
                         { name: "Manage Events", link: "/manage-events" },
                         { name: "Manage Volunteers", link: "/manage-volunteers" },
-                        { name: "Manage Users", link: "/manage-users"},
+                        { name: "Manage Users", link: "../specific-page/manage-users"},
                         { name: "Account", link: "/mange-account"},
                     ]
                 },

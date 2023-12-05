@@ -1,4 +1,4 @@
-const ACCESS_KEY = '9xardsZ8M9XhBaqY_X-3KlSAhegYNR7ozyPpoT_ir8'; //Insert M at the end Replace with your actual Unsplash access key
+const ACCESS_KEY = '9xardsZ8M9XhBaqY_X-3KlSAhegYNR7ozyPpoT_ir8M'; //Insert M at the end Replace with your actual Unsplash access key
 
 const fetchRandomImage = async () => {
   try {

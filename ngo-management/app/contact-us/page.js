@@ -2,6 +2,9 @@ import BackgroundImage from "../components/background-image";
 import BannerNav from "../components/banner-nav";
 import Footer from "../components/footer";
 
+
+
+
 export default function Page () {
     return (
         <main>

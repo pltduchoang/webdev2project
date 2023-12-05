@@ -1,10 +1,10 @@
 "use client";
 import { useUserAuth } from "../_utils/auth-context";
-import InputWithFloatingLabel from "./input-floating-label";
+import InputWithFloatingLabel from "../components/input-floating-label";
 import { useEffect, useState } from "react";
-import PassWordInputField from "./password-input-field";
+import PassWordInputField from "../components/password-input-field";
 
-export default function LogInCard ({signUpState}) {
+export default function QuickLoginCard ({signUpState, onLogin}) {
     const { user, gitHubSignIn, googleSignIn, emailSignIn, firebaseSignOut, errorMessages} = useUserAuth();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -12,6 +12,7 @@ export default function LogInCard ({signUpState}) {
     const handleSignIn = (event) => {
         event.preventDefault();
         emailSignIn(email, password);
+        onLogin();
     };
 
     const handleSignUp = () => {

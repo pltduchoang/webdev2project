@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import EventCard from "./event-card";
 
-export default function EventList({eventList, passEvent, passAttend, passVolunteer}) {
+export default function EventList({eventList, passEvent, passAttend, passVolunteer, passLoginRequest}) {
     const [eventWorkingList, setEventList] = useState([]);
 
     useEffect(() => {
@@ -23,6 +23,10 @@ export default function EventList({eventList, passEvent, passAttend, passVolunte
         passVolunteer(event);
     }
 
+    const handlePassLogin = (e) => {
+        passLoginRequest(e);
+    }
+
     return (
         <main>
             <div className="flex flex-col items-center md:flex-row md:flex-wrap md:justify-center w-full">
@@ -31,7 +35,7 @@ export default function EventList({eventList, passEvent, passAttend, passVolunte
                     <div key={index}>
                         {event.eventDate && new Date(event.eventDate) >= new Date() && (
                         <div className=" w-96" >
-                            <EventCard  event={event} showDetails={passEventDetail} passAttend={handleAttend} passVolunteer={handleVolunteer}/>
+                            <EventCard  event={event} showDetails={passEventDetail} passAttend={handleAttend} passLoginRequest={handlePassLogin} passVolunteer={handleVolunteer}/>
                         </div>
                     )}
                     </div>
@@ -44,7 +48,7 @@ export default function EventList({eventList, passEvent, passAttend, passVolunte
                     <div key={index}>
                         {event.eventDate && new Date(event.eventDate) < new Date() && (
                         <div className=" w-96 opacity-80" >
-                            <EventCard  event={event} showDetails={passEventDetail} passAttend={handleAttend} passVolunteer={handleVolunteer}/>
+                            <EventCard  event={event} showDetails={passEventDetail} passAttend={handleAttend} passLoginRequest={handlePassLogin} passVolunteer={handleVolunteer}/>
                         </div>
                     )}
                     </div>

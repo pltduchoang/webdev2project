@@ -1,17 +1,20 @@
 "use client";
 import { useState } from 'react';
 
-export default function InputWithFloatingLabel({ label , ...rest }) {
+export default function PassWordInputField({ label, sendFocusStatus , ...rest }) {
   const [focused, setFocused] = useState(false);
 
   const handleFocus = () => {
     setFocused(true);
+    sendFocusStatus(true);
   };
 
   const handleBlur = (e) => {
     if (!e.target.value) {
       setFocused(false);
+      sendFocusStatus(false);
     }
+    sendFocusStatus(false);
   };
 
   return (

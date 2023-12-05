@@ -8,13 +8,11 @@ import LogInCard from "./components/login-card";
 import BackgroundImage from "./components/background-image";
 import NavBar from "./components/navbar";
 import SignUpForm from "./components/signup";
-
-
-
+import { sendEmailVerification } from "firebase/auth";
 export default function Home() {
 
   
-  const { user } = useUserAuth();
+  const { user, firebaseSignOut } = useUserAuth();
   const [showLoggedInMessage, setShowLoggedInMessage] = useState(false);
   const [showSignUpForm, setShowSignUpForm] = useState(false);
     //popup a message after 2 seconds if user is logged in
@@ -25,6 +23,7 @@ export default function Home() {
       if (user) {
         timeout = setTimeout(() => {
           setShowLoggedInMessage(true);
+          console.log('Verified user: ', user.emailVerified);
         }, 1000); // Show the message after 2 seconds
       }
   
@@ -70,7 +69,17 @@ export default function Home() {
         <Link href="/common-pages">
           <div className="fixed inset-0 flex items-center justify-center backgroundDarkColor bg-opacity-75" style={{zIndex:3}} onClick={handleModalClose}>
             <div className="backgroundLightColor p-6 rounded shadow-md textColor">
-              <p>You are logged in. <Link className='py-1 px-2 transition duration-300 ease-in-out hover:bg-orange-500 rounded-md myBorder text-sm' href='/common-pages' >Click here to proceed.</Link></p>
+              {user.emailVerified ? (
+                <p>You are logged in. <Link className='py-1 px-2 transition duration-300 ease-in-out hover:bg-orange-500 rounded-md myBorder text-sm' href='/common-pages' >Click here to proceed.</Link></p>
+              ):(
+                <div className="flex flex-col justify-center">
+                  <p>You are logged in but your email is not verified. Please check your email for verification link.</p>
+                  <p className="text-center"><Link className='py-1 px-2 transition duration-300 ease-in-out hover:bg-orange-500 rounded-md myBorder text-sm' href='/common-pages' >Click here to proceed.</Link></p>
+                  <button>
+                    <p className="textColor opacity-80 hover:opacity-100 transition duration-300 ease-in-out" onClick={() => sendEmailVerification(user)} >Resend verification email</p>
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </Link>
@@ -95,7 +104,7 @@ export default function Home() {
                   onClick={(e) => e.stopPropagation()}
                   style={{zIndex: 2}}
               >
-                  <SignUpForm/>
+                  <SignUpForm signUpCompleted={handleCloseSignUpForm}/>
               </div>
           </div>
       )}

@@ -55,18 +55,21 @@ export const AuthContextProvider = ({ children }) => {
           console.log(errorMessages);
           break;
         default:
-          setErrorMessages('Error signing in:', error.message);
+          setErrorMessages('Error signing in: Check your email/password', error.message);
           console.log(errorMessages);
           break;
     }
+    setTimeout(() => {
+      setErrorMessages(null);
+    }, 3000);
   };
 };
+
+
 
   const firebaseSignOut = () => {
     return signOut(auth);
   };
-
-  
 
   return (
     <AuthContext.Provider

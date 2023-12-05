@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 import { subscribeToEvents } from "../_services/event-services";
 import EventDetail from "./event-detail";
 import RegisterForm from "./register-form";
+import QuickLoginCard from "./quick-login-card";
 
 
 export default function Page() {
@@ -17,6 +18,7 @@ export default function Page() {
     const [registerForm, setRegisterForm] = useState(false);
     const [targetForm, setTargetForm] = useState(null);
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const [showLogInCard, setShowLogInCard] = useState(false);
     
 
     useEffect(() => {
@@ -51,13 +53,12 @@ export default function Page() {
     }
 
     const handleSubmitted = () => {
-        setIsSubmitted(true)
-        if(isSubmitted){
-            
-            setRegisterForm(false);
-            setTargetForm(null);
-            setIsSubmitted(false);
-        }
+        setRegisterForm(false);
+        setTargetForm(null);
+    }
+
+    const handleLoginFromCard = (e) => {
+        setShowLogInCard(e);
     }
     
     const currentPage = "Events" //pass current page to banner nav for styling
@@ -69,7 +70,7 @@ export default function Page() {
                 <p>The exciting events are here</p>
             </div>
             <hr className="mx-20 bg-slate-400 "/>
-            <EventList eventList={eventList} passEvent={handleEventDetails} passAttend={handleAttend} passVolunteer={handleVolunteer} isSubmitted={isSubmitted}/>
+            <EventList eventList={eventList} passEvent={handleEventDetails} passAttend={handleAttend} passVolunteer={handleVolunteer} isSubmitted={isSubmitted} passLoginRequest={handleLoginFromCard}/>
             <BackgroundImage/>
             <Footer/>
             {eventDetails && (
@@ -119,6 +120,37 @@ export default function Page() {
                         <RegisterForm event={registerForm} formTitle={targetForm} isSubmitted={handleSubmitted}/>
                     </div>
                 </div>
+            )}
+
+            {/* pop up login card */}
+            {showLogInCard && (
+            <div
+                className="fixed top-0 left-0 min-h-screen w-full backgroundLightColor opacity-100 flex"
+                style={{ zIndex: 1 }}
+                onClick={(e) => e.stopPropagation()}
+                >
+                <div className="fixed bottom-20 right-8">
+                    <button
+                        onClick={handleCloseRegisterForm}
+                        className="itemColor textColor opacity-80 rounded-full p-4 shadow-lg transition duration-300 ease-in-out focus:outline-none hover:opacity-100"
+                        style={{zIndex: 3}}
+                    >
+                        <p className="mx-3 text-5xl">x</p>
+                    </button>
+                </div>
+                <div
+                    className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full md:w-8/12 lg:w-6/12"
+                    onClick={(e) => e.stopPropagation()}
+                    style={{zIndex: 2}}
+                >
+                    <QuickLoginCard onLogin={() => setShowLogInCard(false)}/>
+                </div>
+                <div className="fixed bottom-20 right-8" style={{zIndex: 1}}>
+                <button onClick={() => setShowLogInCard(false)} className="itemColor textColor opacity-80 rounded-full p-4 shadow-lg transition duration-300 ease-in-out focus:outline-none hover:opacity-100">
+                    <p className="mx-2 text-5xl">X</p>
+                </button>
+                </div>
+            </div>
             )}
         </main>
     )
