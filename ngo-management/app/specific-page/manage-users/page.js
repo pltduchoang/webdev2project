@@ -11,7 +11,7 @@ import UserList from "./user-list";
 export default function Page(){
     const currentPage="Management";
     const [userList, setUserList] = useState([]);
-    const [userByEmail, setUserByEmail] = useState([{}]);
+    const [userByEmail, setUserByEmail] = useState({});
 
     const { user } = useUserAuth();
 
@@ -26,8 +26,11 @@ export default function Page(){
     };
 
     useEffect(() => {
-        const unsubscribe = subscribeToUsers(setUserList);
-        return () => unsubscribe();
+        const fetchData = async () => {
+            const unsubscribe = subscribeToUsers(setUserList);
+            return () => unsubscribe();
+        };
+        fetchData();
     }, []);
     
 
@@ -41,7 +44,9 @@ export default function Page(){
               <p>Let&apos;s manage your users database with ease</p>
           </div>
           <hr className="mx-20 bg-slate-400 "/>
-          <UserList UserList={userList}/>
+          <div className="mb-20 mx-10">
+            <UserList userList={userList}/>
+          </div>
           <BackgroundImage/>
           <Footer/>
       </main>

@@ -98,6 +98,8 @@ export default function SignUpForm({signUpCompleted}) {
                 province: '',
                 postalCode: '',
                 role: isVolunteer ? 'volunteer' : 'guest',
+                createAt: new Date(),
+                birthday,
               // You may add other details here as needed
             };
             await sendEmailVerification(userCredential.user);

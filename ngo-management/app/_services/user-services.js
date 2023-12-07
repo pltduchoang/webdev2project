@@ -23,8 +23,7 @@ export const subscribeToUsers = (onUpdate) => {
         const user = {
           id: doc.id,
           ...data,
-          createdAt: data.createdAt.toDate(),
-          dateUpdated: data.dateUpdated.toDate(),
+          createAt: data.createAt ? data.createAt.toDate() : null,
         };
         return user;
       });
