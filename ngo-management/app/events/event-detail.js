@@ -2,7 +2,9 @@
 import { useUserAuth } from '../_utils/auth-context';
 
 export default function EventDetail({ event }) {
-    const { user } = useUserAuth();
+    const { user, role } = useUserAuth();
+
+
     const handleDelete = () => {
         return null;
     }
@@ -82,14 +84,6 @@ export default function EventDetail({ event }) {
                         
                     </div>
                     
-                    <div className="flex flex-row w-full">
-                        <button onClick={handleDelete} className="w-1/2 rounded-md opacity-90 m-2 ml-0 p-2 textColor myBorder transition duration-300 ease-in-out opacity:80 hover:opacity-100 hover:bg-stone-500">
-                            Attend
-                        </button>
-                        <button onClick={handleEdit} className="w-1/2 rounded-md opacity-90 m-2 mr-0 p-2 textColor myBorder transition duration-300 ease-in-out opacity:80 hover:opacity-100 hover:bg-stone-500">
-                            Volunteer
-                        </button>
-                    </div>
                     
                 </div>
           </div>

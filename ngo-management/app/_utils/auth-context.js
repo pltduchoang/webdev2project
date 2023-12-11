@@ -10,18 +10,27 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { auth } from "./firebase";
+import { getUserByUid } from "../_services/user-services";
 
 const AuthContext = createContext();
 
 
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [role, setRole] = useState(null); // Assuming the role information is available in the userProfile fetched from the database
   const [errorMessages, setErrorMessages] = useState(null);
   const [databaseVersion, setDatabaseVersion] = useState(0);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      if (currentUser) {
+        setUser(currentUser);
+        const profile = await getUserByUid(currentUser.uid);
+        setRole(profile.role);
+      } else {
+        setUser(null);
+        setRole(null);
+      }
     });
     return () => unsubscribe();
   }, [user]);
@@ -40,11 +49,9 @@ export const AuthContextProvider = ({ children }) => {
 
   const emailSignIn = async (email, password) => {
     try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const profile = await getUserByUid(userCredential.user.uid);
+      setRole(profile.role);
       setUser(userCredential.user);
       setErrorMessages(null);
     } catch (error) {
@@ -80,7 +87,7 @@ export const AuthContextProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, gitHubSignIn, googleSignIn, emailSignIn, firebaseSignOut, errorMessages,}}
+      value={{ user, role, gitHubSignIn, googleSignIn, emailSignIn, firebaseSignOut, errorMessages,}}
     >
       {children}
     </AuthContext.Provider>

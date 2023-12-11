@@ -34,7 +34,6 @@ export default function EventCard({ event, editEvent, passEventUp1 }) {
                 onClick={handleDetail}>
                 <div className="w-full itemColor m-0 p-3 text-center rounded-t-md">
                     <h3 className="textColor text-lg font-semibold">{event.title}</h3>
-                    <h4 className="textColor text-lg font-semibold">{event.id}</h4>
                 </div>
                 <div className="p-6">
                     <p className="textColor ">{event.description}</p>
@@ -90,8 +89,8 @@ export default function EventCard({ event, editEvent, passEventUp1 }) {
             
             {/* Pop up confirmation page for when closing the adding event form and edit event form */}
             {showDeleteConfirmation && (
-                <div className="confirmation-modal fixed inset-0 flex items-center justify-center backgroundLightColor"
-                style={{zIndex:4}}>
+                <div className="confirmation-modal fixed inset-0 flex items-center justify-center backgroundLightColor placeholder-opacity-100"
+                style={{zIndex:6}}>
                     <div className="backgroundDarkColor p-6 rounded-lg shadow-lg textColor">
                         <p>Are you sure you want to delete?</p>
                         <p>Event will be permanently deleted</p>

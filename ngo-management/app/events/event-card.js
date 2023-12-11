@@ -6,10 +6,10 @@ import { getUserByUid } from "../_services/user-services";
 
 
 export default function EventCard({ event, showDetails, passAttend, passVolunteer, passLoginRequest}) {
-    const { user } = useUserAuth();
+    const { user , role } = useUserAuth();
     const [eventAttendedCheck, setEventAttendedCheck] = useState(false);
     const [eventVolunteeredCheck, setEventVolunteeredCheck] = useState(false);
-    const [userProfile, setUserProfile] = useState(null);
+    const [showTips, setShowTips] = useState(false);
 
 
 
@@ -21,11 +21,7 @@ export default function EventCard({ event, showDetails, passAttend, passVoluntee
     };
 
     const HandleVolunteer = () => {
-        if (canNotVolunteer) {
-            alert("You are not a volunteer!");
-        } else {
         passVolunteer(event);
-        }
     };
 
     const handleDetail = () => {
@@ -66,6 +62,13 @@ export default function EventCard({ event, showDetails, passAttend, passVoluntee
             setEventVolunteeredCheck(false);
         }
     }
+
+    const handleTips = () => {
+        if (role !== "volunteer" && role !== "admin") {
+            setShowTips(true);
+        }
+    }
+
 
     return (
         <div className="flex flex-wrap w-full">           
@@ -130,8 +133,16 @@ export default function EventCard({ event, showDetails, passAttend, passVoluntee
                             UnVolunteer
                         </button>
                         ) : (
-                        <button onClick={(e)=> {e.stopPropagation(); HandleVolunteer()}} className="w-1/2 rounded-md opacity-90 m-2 ml-0 p-2 textColor myBorder transition duration-300 ease-in-out opacity:80 hover:opacity-100 hover:bg-stone-500">
+                        <button onClick={(e)=> {e.stopPropagation(); HandleVolunteer()}} className=" relative w-1/2 rounded-md opacity-90 m-2 ml-0 p-2 textColor myBorder transition duration-300 ease-in-out opacity:80 hover:opacity-100 hover:bg-stone-500"
+                        disabled={user.role === "guest"}
+                        onMouseOver={handleTips}
+                        onMouseLeave={()=>setShowTips(false)}>
                             Volunteer
+                            {showTips && (
+                                <div className="absolute -top-20 myBorder text-amber-500 rounded-md p-3 backgroundDarkColor">
+                                    <p>Only for volunteer</p>
+                                </div>
+                            )}
                         </button>
                         )}
                     </div>

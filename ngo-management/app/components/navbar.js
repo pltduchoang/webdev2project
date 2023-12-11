@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 export default function Navbar({currentPage}) {
     const [navList, setNavList] = useState([])
 
-    const { user, firebaseSignOut } = useUserAuth();
+    const { user, role, firebaseSignOut } = useUserAuth();
 
     const [viewSubNav, setViewSubNav] = useState(false);
 
@@ -27,7 +27,8 @@ export default function Navbar({currentPage}) {
     }, [currentPage]);
 
     useEffect(() => {
-        if (user) {
+        if (user && role === "admin") {
+          console.log("from navbar: ", user);
             setNavList([
                 { name: "Home", link: "/common-pages" },
                 { name: "Events", link: "/events" },
@@ -37,7 +38,6 @@ export default function Navbar({currentPage}) {
                         { name: "Manage Events", link: "/manage-events" },
                         { name: "Manage Volunteers", link: "../specific-page/manage-volunteers" },
                         { name: "Manage Users", link: "../specific-page/manage-users"},
-                        { name: "Account", link: "/account"},
                     ]
                 },
             ]);
@@ -82,6 +82,7 @@ export default function Navbar({currentPage}) {
             <ul className={`${
               isMobileMenuOpen ? "flex flex-col" : "hidden md:flex"
               } ml-8 p-1 h-full my-0 py-0 md:flex-row md:h-fit`}
+              style={{zIndex: 2}}
             >
                 {navList.map((navItem) => (
                     <div key={navItem.name}>
@@ -124,7 +125,7 @@ export default function Navbar({currentPage}) {
             </ul>
             {user && (
                 <div className="flex flex-row-reverse mr-6 pr-11 absolute right-6">
-                    <p className="textColor text-sm text-center mt-0 font-bold">{user.email}</p>
+                    <Link href={"../account"} className="textColor text-sm text-center mt-0 font-bold">{user.email} - {role}</Link>
                 </div>
             )}
             

@@ -23,7 +23,6 @@ export default function EventCard({ event, editVolunteers, passEventUp1 }) {
                 onClick={handleDetail}>
                 <div className="w-full itemColor m-0 p-3 text-center rounded-t-md">
                     <h3 className="textColor text-lg font-semibold">{event.title}</h3>
-                    <h4 className="textColor text-lg font-semibold">{event.id}</h4>
                 </div>
                 <div className="p-6">
                     <p className="textColor ">{event.description}</p>

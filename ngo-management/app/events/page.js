@@ -45,13 +45,8 @@ export default function Page() {
     }
 
     const handleVolunteer = (event) => {
-        if(canNotVolunteer){
-            alert("You are not a volunteer!");
-        }
-        else{
             setRegisterForm(event);
             setTargetForm("Volunteer");
-        }
     }
 
     const handleCloseRegisterForm = () => {
@@ -132,7 +127,7 @@ export default function Page() {
             {showLogInCard && (
             <div
                 className="fixed top-0 left-0 min-h-screen w-full backgroundLightColor opacity-100 flex"
-                style={{ zIndex: 1 }}
+                style={{ zIndex: 3 }}
                 onClick={(e) => e.stopPropagation()}
                 >
                 <div className="fixed bottom-20 right-8">

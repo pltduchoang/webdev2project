@@ -128,7 +128,7 @@ export default function Page() {
             {eventDetails && (
                 <div
                     className="fixed top-0 left-0 min-h-screen w-full backgroundLightColor opacity-100 transition-transform duration-300 ease-in-out"
-                    style={{ zIndex: 1 }}
+                    style={{ zIndex: 2 }}
                     onClick={handleCloseDetails}
                     cursor="pointer"
                 >

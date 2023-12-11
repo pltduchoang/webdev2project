@@ -111,8 +111,9 @@ export default function StatusToggle({currentVolunteerEmail, currentWorkingEvent
                 }
             </div>
             {showTip &&
-                <div className="absolute top-10 w-full flex items-center justify-center rounded-md myBorder backgroundLightColor">
-                    <p className="textColor">Busy with same date event: {conflictEvent.title}</p>
+                <div className="absolute top-10 w-full flex items-center justify-center rounded-md myBorder backgroundLightColor"
+                style={{zIndex:3}}>
+                    <p className="text-amber-500 p-2">Busy with same date event: {conflictEvent.title}</p>
                 </div>
                 }
         </main>

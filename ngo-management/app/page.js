@@ -22,6 +22,7 @@ export default function Home() {
   
       if (user) {
         timeout = setTimeout(() => {
+          console.log('User: ', user);
           setShowLoggedInMessage(true);
           console.log('Verified user: ', user.emailVerified);
         }, 1000); // Show the message after 2 seconds
@@ -70,7 +71,7 @@ export default function Home() {
           <div className="fixed inset-0 flex items-center justify-center backgroundDarkColor bg-opacity-75" style={{zIndex:3}} onClick={handleModalClose}>
             <div className="backgroundLightColor p-6 rounded shadow-md textColor">
               {user.emailVerified ? (
-                <p>You are logged in. <Link className='py-1 px-2 transition duration-300 ease-in-out hover:bg-orange-500 rounded-md myBorder text-sm' href='/common-pages' >Click here to proceed.</Link></p>
+                <p>You are logged in as<Link className='py-1 px-2 transition duration-300 ease-in-out hover:bg-orange-500 rounded-md myBorder text-sm' href='/common-pages' >Click here to proceed.</Link></p>
               ):(
                 <div className="flex flex-col justify-center">
                   <p>You are logged in but your email is not verified. Please check your email for verification link.</p>
