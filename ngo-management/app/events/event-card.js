@@ -21,6 +21,9 @@ export default function EventCard({ event, showDetails, passAttend, passVoluntee
     };
 
     const HandleVolunteer = () => {
+        if (role === "guest") {
+            return;
+        }
         passVolunteer(event);
     };
 
@@ -44,6 +47,19 @@ export default function EventCard({ event, showDetails, passAttend, passVoluntee
             }
         }
     }, [event]);
+
+    useEffect(() => {
+        if (user) {
+            if (event){
+                if (Array.isArray(event.attendees) && event.attendees.some(attendee => attendee.email === user.email)) {
+                    setEventAttendedCheck(true);
+                }
+                if (Array.isArray(event.volunteers) && event.volunteers.some(volunteer => volunteer.email === user.email)) {
+                    setEventVolunteeredCheck(true);
+                }
+            }
+        }
+    }, [user]);
 
 
 

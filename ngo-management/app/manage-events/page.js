@@ -170,7 +170,7 @@ export default function Page() {
                         onClick={(e) => e.stopPropagation()}
                         style={{zIndex: 2}}
                     >
-                        <AddEvent/>
+                        <AddEvent onAdd={()=>setAddingEvent(false)}/>
                     </div>
                 </div>
             )}
@@ -179,7 +179,7 @@ export default function Page() {
             {showConfirmation && (
             <div className="confirmation-modal fixed inset-0 flex items-center justify-center backgroundLightColor"
             style={{zIndex:4}}>
-                <div className="backgroundDarkColor p-6 rounded-lg shadow-lg textColor">
+                <div className="backgroundDarkColor p-6 rounded-lg shadow-lg textColor myBorder">
                     <p>Are you sure you want to cancel?</p>
                     <p> Unsaved data will be lost!</p>
                     <div className="flex justify-around mt-5">
@@ -195,7 +195,7 @@ export default function Page() {
             {editEvent && (
             <div
             className="fixed top-0 left-0 min-h-screen w-full backgroundLightColor opacity-100 transition-transform duration-300 ease-in-out"
-            style={{ zIndex: 1 }}
+            style={{ zIndex: 3 }}
             onClick={(e) => e.stopPropagation()}
             >
                 <div className="fixed bottom-20 right-8">
@@ -210,7 +210,6 @@ export default function Page() {
                 <div
                     className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8/12 overflow-y-auto"
                     onClick={(e) => e.stopPropagation()}
-                    style={{zIndex: 2}}
                 >
                     <EditEvent editEvent={editEvent}/>
                 </div>

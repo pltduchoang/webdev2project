@@ -117,9 +117,9 @@ export default function EventDetail({ event, passEditEvent, turnOffEventDetail }
         </div>
         {/* Pop up confirmation page for when closing the adding event form and edit event form */}
         {showDeleteConfirmation && (
-            <div className="confirmation-modal fixed inset-0 flex items-center justify-center backgroundLightColor"
+            <div className="confirmation-modal fixed inset-0 flex items-center justify-center backgroundLightColor "
             style={{zIndex:4}}>
-                <div className="backgroundDarkColor p-6 rounded-lg shadow-lg textColor">
+                <div className="backgroundDarkColor p-6 rounded-lg shadow-lg textColor myBorder">
                     <p>Are you sure you want to delete?</p>
                     <p>Event will be permanently deleted</p>
                     <div className="flex justify-around mt-5">

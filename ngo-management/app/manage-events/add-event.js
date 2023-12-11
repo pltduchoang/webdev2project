@@ -3,7 +3,7 @@ import InputWithFloatingLabel from '../components/input-floating-label';
 import { addEvent } from '../_services/event-services';
 import { useUserAuth } from '../_utils/auth-context';
 
-export default function AddEvent() {
+export default function AddEvent({onAdd}) {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [eventDate, setEventDate] = useState('');
@@ -46,6 +46,8 @@ export default function AddEvent() {
         setDateUpdated('');
         setAttendees('');
         setVolunteers('');
+
+        onAdd();
     };
 
     return (

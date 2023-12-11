@@ -12,7 +12,9 @@ export default function QuickLoginCard ({signUpState, onLogin}) {
     const handleSignIn = (event) => {
         event.preventDefault();
         emailSignIn(email, password);
-        onLogin();
+        setTimeout(() => {
+          onLogin();
+        }, 3000);
     };
 
     const handleSignUp = () => {
@@ -118,7 +120,10 @@ export default function QuickLoginCard ({signUpState, onLogin}) {
             )}
               </div>
               {user !== null && (
-                <p className="text-green-500">You are signed in as {user.email}</p>
+                <div>
+                  <p className="text-green-500">You are signed in as {user.email}.</p>
+                  <p className="text-green-500 text-lg">Please manually refresh the page for proper functionality.</p>
+                </div>
               )}
               {errorMessages && (
                 <p className="text-red-500">{errorMessages}</p>
