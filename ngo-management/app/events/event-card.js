@@ -2,12 +2,18 @@
 import { useState, useEffect } from "react";
 import { useUserAuth } from "../_utils/auth-context";
 import { updateEvent } from "../_services/event-services";
+import { getUserByUid } from "../_services/user-services";
 
 
 export default function EventCard({ event, showDetails, passAttend, passVolunteer, passLoginRequest}) {
     const { user } = useUserAuth();
     const [eventAttendedCheck, setEventAttendedCheck] = useState(false);
     const [eventVolunteeredCheck, setEventVolunteeredCheck] = useState(false);
+    const [userProfile, setUserProfile] = useState(null);
+
+
+
+
 
     
     const HandleAttend = () => {
@@ -15,7 +21,11 @@ export default function EventCard({ event, showDetails, passAttend, passVoluntee
     };
 
     const HandleVolunteer = () => {
+        if (canNotVolunteer) {
+            alert("You are not a volunteer!");
+        } else {
         passVolunteer(event);
+        }
     };
 
     const handleDetail = () => {

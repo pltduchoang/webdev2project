@@ -9,7 +9,7 @@ import { subscribeToEvents } from "../_services/event-services";
 import EventDetail from "./event-detail";
 import RegisterForm from "./register-form";
 import QuickLoginCard from "./quick-login-card";
-
+import { getUserByUid } from "../_services/user-services";
 
 export default function Page() {
     const { user } = useUserAuth();
@@ -23,10 +23,11 @@ export default function Page() {
 
     useEffect(() => {
         
-          const unsubscribe = subscribeToEvents(setEventList);
-          return () => unsubscribe();
-        
+            const unsubscribe = subscribeToEvents(setEventList);
+            return () => unsubscribe();
+
       }, []);
+    
     
     const handleEventDetails = (event) => {
         if(event){
@@ -44,8 +45,13 @@ export default function Page() {
     }
 
     const handleVolunteer = (event) => {
-        setRegisterForm(event);
-        setTargetForm("Volunteer");
+        if(canNotVolunteer){
+            alert("You are not a volunteer!");
+        }
+        else{
+            setRegisterForm(event);
+            setTargetForm("Volunteer");
+        }
     }
 
     const handleCloseRegisterForm = () => {

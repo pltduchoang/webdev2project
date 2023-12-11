@@ -91,10 +91,10 @@ export default function StatusToggle({currentVolunteerEmail, currentWorkingEvent
     return(
         <main className="relative">
             {busy &&
-                <div className="w-full flex items-center justify-center rounded-md myBorder backgroundLightColor shadow-inner">
-                    <p className="textColor"
-                    onMouseOver={()=>setShowTip(true)}
-                    onMouseLeave={()=>setShowTip(false)}>Busy</p>
+                <div className="w-full flex items-center justify-center rounded-md myBorder backgroundLightColor shadow-inner"
+                onMouseOver={()=>setShowTip(true)}
+                onMouseLeave={()=>setShowTip(false)}>
+                    <p className="textColor">Busy</p>
                 </div>
             }
             <div onClick={handleToggle}
