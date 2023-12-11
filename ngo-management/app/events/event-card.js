@@ -27,12 +27,14 @@ export default function EventCard({ event, showDetails, passAttend, passVoluntee
     };
 
     useEffect(() => {
-        if (event){
-            if (Array.isArray(event.attendees) && event.attendees.some(attendee => attendee.email === user.email)) {
-                setEventAttendedCheck(true);
-            }
-            if (Array.isArray(event.volunteers) && event.volunteers.some(volunteer => volunteer.email === user.email)) {
-                setEventVolunteeredCheck(true);
+        if (user) {
+            if (event){
+                if (Array.isArray(event.attendees) && event.attendees.some(attendee => attendee.email === user.email)) {
+                    setEventAttendedCheck(true);
+                }
+                if (Array.isArray(event.volunteers) && event.volunteers.some(volunteer => volunteer.email === user.email)) {
+                    setEventVolunteeredCheck(true);
+                }
             }
         }
     }, [event]);
