@@ -99,7 +99,7 @@ export default function Page() {
             {/* Pop up register form */}
             {registerForm && (
                 <div
-                    className="fixed top-0 left-0 min-h-screen w-full backgroundLightColor opacity-100 flex"
+                    className="fixed top-0 left-0 min-h-screen w-full backgroundLightColor opacity-100 flex overflow-y-auto"
                     style={{ zIndex: 1 }}
                     onClick={(e) => e.stopPropagation()}
                 >
@@ -113,7 +113,7 @@ export default function Page() {
                         </button>
                     </div>
                     <div
-                        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full md:w-8/12 lg:w-6/12"
+                        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full md:w-8/12 lg:w-6/12 my-10"
                         onClick={(e) => e.stopPropagation()}
                         style={{zIndex: 2}}
                     >

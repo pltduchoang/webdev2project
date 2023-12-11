@@ -18,7 +18,6 @@ export default function BackgroundImage ({passPhotographer}) {
                 setImageUrl(data.urls.regular);
     
                 setPhotographer(data.user.name);
-                passPhotographer(data.user.name);
                 console.log(data);
             }
           } catch (error) {

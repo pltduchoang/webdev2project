@@ -99,11 +99,12 @@ export default function SignUpForm({signUpCompleted}) {
                 postalCode: '',
                 role: isVolunteer ? 'volunteer' : 'guest',
                 createAt: new Date(),
-                birthday,
+                birthday: '',
               // You may add other details here as needed
             };
             await sendEmailVerification(userCredential.user);
             // Save user profile to Firestore
+            
             await createUserProfile(userCredential.user.uid, newUser); // Define createUserProfile function
     
             signUpCompleted(); // Trigger the completion callback after successful signup

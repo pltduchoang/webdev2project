@@ -2,16 +2,6 @@ import { collection, getDocs, getDoc ,addDoc, deleteDoc, doc, updateDoc, onSnaps
 import { db } from '../_utils/firebase';
 
 
-// //Admin section
-// const admin = require('firebase-admin');
-
-// const serviceAccount = require('../../admin/ngomanagement-5fe54-firebase-adminsdk-su68d-560b43ab90.json');
-
-// admin.initializeApp({
-//   credential: admin.credential.cert(serviceAccount),
-//   databaseURL: 'https://<YOUR_PROJECT_ID>.firebaseio.com', // Replace with your database URL
-// });
-
 
 
 export const subscribeToUsers = (onUpdate) => {
@@ -59,6 +49,19 @@ export const getAllUsers = async () => {
   return users;
 };
 
+// Get user from database by UID from user authentication
+export const getUserByUid = async (id) => {
+  const userDocRef = doc(db, 'users', id); // 'users' is the collection name where user profiles are stored
+  const userDoc = await getDoc(userDocRef);
+
+  if (userDoc.exists()) {
+    const userData = { ...userDoc.data(), id: userDoc.id };
+    return userData;
+  } else {
+    return null; // User document with the given UID doesn't exist
+  }
+};
+
 
 // Get a single user from Firestore by Email
 export const getUserByEmail = async (email) => {
@@ -69,26 +72,32 @@ export const getUserByEmail = async (email) => {
 };
 
 
+// update user profile
+// 
+export const updateUserProfile = async (userId, userData) => {
+  const userRef = doc(db, 'users', userId); // 'users' is the collection name where user profiles are stored
 
-// // Admin
-// // Delete user by email from Authentication
-// async function deleteUserByEmail(email) {
-//   try {
-//     const user = await admin.auth().getUserByEmail(email);
-//     await admin.auth().deleteUser(user.uid);
-//     return user.uid; // Return the user ID if needed
-//   } catch (error) {
-//     console.error('Error deleting user from Authentication:', error);
-//     throw error;
-//   }
-// }
+  try {
+    await updateDoc(userRef, userData); // Update user data in Firestore
+    console.log('User profile updated successfully');
+  } catch (error) {
+    console.error('Error updating user profile:', error.message);
+    // Handle any errors while updating user profile
+    throw error;
+  }
+};
 
-// async function deleteUserData(userId) {
-//   try {
-//     await admin.firestore().collection('users').doc(userId).delete();
-//     console.log('User data deleted from Firestore');
-//   } catch (error) {
-//     console.error('Error deleting user data from Firestore:', error);
-//     throw error;
-//   }
-// }
+// Delete user profile from Database
+export const deleteUserProfile = async (userId) => {
+  const userRef = doc(db, 'users', userId); // 'users' is the collection name where user profiles are stored
+
+  try {
+    await deleteDoc(userRef);
+    console.log('User profile deleted successfully');
+  } catch (error) {
+    console.error('Error deleting user profile:', error.message);
+    // Handle any errors while deleting user profile
+    throw error;
+  }
+};
+

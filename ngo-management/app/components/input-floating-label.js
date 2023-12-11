@@ -1,5 +1,6 @@
 "use client";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+
 
 export default function InputWithFloatingLabel({ label , ...rest }) {
   const [focused, setFocused] = useState(false);
@@ -13,6 +14,12 @@ export default function InputWithFloatingLabel({ label , ...rest }) {
       setFocused(false);
     }
   };
+
+  useEffect(() => {
+    if (rest.value) {
+      setFocused(true);
+    }
+  }, []);
 
   return (
     <div className="relative">

@@ -1,29 +1,18 @@
-import { useUserAuth } from "../_utils/auth-context";
-import { deleteEvent } from "../_services/event-services";
+import { useUserAuth } from "../../_utils/auth-context";
 import { useState } from "react";
 
-export default function EventCard({ event, editEvent, passEventUp1 }) {
+export default function EventCard({ event, editVolunteers, passEventUp1 }) {
     const { user } = useUserAuth();
     const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false); //state to determine if user is adding an event
     
-    const HandleDelete = async () => {
-        setShowDeleteConfirmation(true);
+
+
+
+    const handleEditVolunteer = () => {
+        editVolunteers(event);
     };
 
-    const handleCloseAfterConfirm = async (confirmed) => {
-        if (confirmed) {
-            await deleteEvent(event.id);
-            setShowDeleteConfirmation(false);
-        } else {
-            setShowDeleteConfirmation(false);
-        }
-    };
-
-    const HandleEdit = () => {
-        editEvent(event);
-    };
-
-    const handleDetail = (e) => {
+    const handleDetail = () => {
         passEventUp1(event);
     };
 
@@ -77,31 +66,14 @@ export default function EventCard({ event, editEvent, passEventUp1 }) {
                     </div>
                     {user && (
                         <div className="flex flex-row w-full">
-                            <button onClick={(e) => {e.stopPropagation(); HandleDelete();}} className="w-1/2 rounded-md opacity-90 m-2 ml-0 p-2 textColor myBorder transition duration-300 ease-in-out opacity:80 hover:opacity-100 hover:bg-stone-500">
-                                Delete
-                            </button>
-                            <button onClick={(e) => {e.stopPropagation(); HandleEdit();}} className="w-1/2 rounded-md opacity-90 m-2 mr-0 p-2 textColor myBorder transition duration-300 ease-in-out opacity:80 hover:opacity-100 hover:bg-stone-500">
-                                Edit
+                            <button onClick={(e) => {e.stopPropagation(); handleEditVolunteer();}} className="w-full rounded-md opacity-90 m-2 ml-0 p-2 textColor myBorder transition duration-300 ease-in-out opacity:80 hover:opacity-100 hover:bg-stone-500">
+                                Manage Volunteers
                             </button>
                         </div>
                     )}
                 </div>
             </div>
             
-            {/* Pop up confirmation page for when closing the adding event form and edit event form */}
-            {showDeleteConfirmation && (
-                <div className="confirmation-modal fixed inset-0 flex items-center justify-center backgroundLightColor"
-                style={{zIndex:4}}>
-                    <div className="backgroundDarkColor p-6 rounded-lg shadow-lg textColor">
-                        <p>Are you sure you want to delete?</p>
-                        <p>Event will be permanently deleted</p>
-                        <div className="flex justify-around mt-5">
-                            <button onClick={() => handleCloseAfterConfirm(true)} className="w-12 hover:bg-orange-500 rounded-md myBorder transition duration-300 ease-in-out">Yes</button>
-                            <button onClick={() => handleCloseAfterConfirm(false)} className="w-12 hover:bg-orange-500 rounded-md myBorder transition duration-300 ease-in-out">No</button>
-                        </div>
-                    </div>
-                </div>
-            )}
         </div>
     );
 }

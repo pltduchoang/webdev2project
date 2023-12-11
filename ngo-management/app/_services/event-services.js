@@ -34,6 +34,36 @@ export const subscribeToEvents = (onUpdate) => {
       throw error;
     }
   };
+  
+  //get all events from firebase
+  export const getEvents = async () => {
+    try {
+      const eventsData = collection(db, "events");
+      const eventsSnapshot = await getDocs(eventsData);
+      const eventList = eventsSnapshot.docs.map((doc) => {
+        const data = doc.data();
+        const event = {
+          id: doc.id,
+          ...data,
+          createdAt: data.createdAt.toDate(),
+          dateUpdated: data.dateUpdated.toDate(),
+        };
+        return event;
+      });
+  
+      // Sort the eventList based on a criterion, for example, event date
+      eventList.sort((a, b) => {
+        const dateA = new Date(a.eventDate);
+        const dateB = new Date(b.eventDate);
+        return dateA - dateB;
+      });
+  
+      return eventList;
+    } catch (error) {
+      console.error("Error getting event list:", error);
+      throw error;
+    }
+  };
 
   //get event by id from firebase
   export const getEventById = async (id) => {

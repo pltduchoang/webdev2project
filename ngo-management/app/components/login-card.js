@@ -3,11 +3,14 @@ import { useUserAuth } from "../_utils/auth-context";
 import InputWithFloatingLabel from "./input-floating-label";
 import { useEffect, useState } from "react";
 import PassWordInputField from "./password-input-field";
+import {getAuth, sendPasswordResetEmail} from "firebase/auth";
 
 export default function LogInCard ({signUpState}) {
     const { user, gitHubSignIn, googleSignIn, emailSignIn, firebaseSignOut, errorMessages} = useUserAuth();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    const [forgotPasswordForm, setForgotPasswordForm] = useState(false);
 
     const handleSignIn = (event) => {
         event.preventDefault();
@@ -48,7 +51,19 @@ export default function LogInCard ({signUpState}) {
       setIsPasswordFocus(focused);
     };
 
-
+    const handleForgotPassword = async () => {
+      if (!email) {
+        console.error('Email is required for password reset');
+        return;
+      }
+      const auth = getAuth();
+      try {
+        await sendPasswordResetEmail(auth, email);
+        console.log('Password reset email sent');
+      } catch (error) {
+        console.error(error);
+      };
+    };
     // Password validation on submit
     useEffect(() => {
         setEmail('');
@@ -58,7 +73,7 @@ export default function LogInCard ({signUpState}) {
     
 
     return (
-        <div className="w-full h-full p-6 backgroundDarkColor rounded-lg  shadow-xl space-y-10 textColor opacity-100">
+        <div className="w-full h-full p-6 backgroundDarkColor rounded-lg  shadow-xl space-y-10 textColor opacity-100 transition-all duration-300 ease-in-out">
           <div className="mb-6">
             <h2 className="text-2xl font-semibold mb-6 ml-2">Sign In - Guest & Volunteer</h2>
             <form onSubmit={handleSignIn}>
@@ -73,9 +88,8 @@ export default function LogInCard ({signUpState}) {
                 disabled={user !== null}
                 autoComplete="off"
                 />
-                
-                
               </div>
+
               <div className="mb-4">
               <PassWordInputField
                 label='Password'
@@ -85,7 +99,28 @@ export default function LogInCard ({signUpState}) {
                 onChange={(e) => handlePasswordChange(e.target.value)}
                 required
                 sendFocusStatus={handlePasswordFocus}
-            />
+              />
+              <button onClick={()=>setForgotPasswordForm(true)} className="textColor text-sm text-center mt-0 font-bold">Forgot Password?</button>
+              {forgotPasswordForm && (
+                <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center backgroundLightColor opacity-100"
+                style={{zIndex:2}}>
+                  <div className="w-1/2 backgroundDarkColor rounded-lg p-10">
+                    <InputWithFloatingLabel
+                      label="Email"
+                      id="email"
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      disabled={user !== null}
+                      autoComplete="off"
+                    />
+                    <div className="flex justify-evenly items-center my-6">
+                      <button onClick={handleForgotPassword} className=" myBorder textColor rounded-lg mt-4 py-2 w-1/4 opacity-80 transition duration-300 ease-in-out hover:bg-stone-500">Reset</button>
+                      <button onClick={()=>setForgotPasswordForm(false)} className=" myBorder textColor rounded-lg mt-4 py-2 w-1/4 opacity-80 transition duration-300 ease-in-out  hover:bg-stone-500">Cancel</button>
+                    </div>
+                  </div>
+                </div>
+              )}
             {isPasswordFocus && (
                 <div className=' rounded-md w-48 pl-4'>
                     {passwordLengthCheck ? (

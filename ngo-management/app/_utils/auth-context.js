@@ -17,6 +17,7 @@ const AuthContext = createContext();
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [errorMessages, setErrorMessages] = useState(null);
+  const [databaseVersion, setDatabaseVersion] = useState(0);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -34,6 +35,8 @@ export const AuthContextProvider = ({ children }) => {
     const provider = new GoogleAuthProvider();
     return signInWithPopup(auth, provider);
   };
+
+
 
   const emailSignIn = async (email, password) => {
     try {
@@ -71,9 +74,13 @@ export const AuthContextProvider = ({ children }) => {
     return signOut(auth);
   };
 
+
+
+
+
   return (
     <AuthContext.Provider
-      value={{ user, gitHubSignIn, googleSignIn, emailSignIn, firebaseSignOut, errorMessages }}
+      value={{ user, gitHubSignIn, googleSignIn, emailSignIn, firebaseSignOut, errorMessages,}}
     >
       {children}
     </AuthContext.Provider>

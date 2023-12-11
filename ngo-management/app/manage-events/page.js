@@ -208,7 +208,7 @@ export default function Page() {
                     </button>
                 </div>
                 <div
-                    className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8/12"
+                    className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8/12 overflow-y-auto"
                     onClick={(e) => e.stopPropagation()}
                     style={{zIndex: 2}}
                 >

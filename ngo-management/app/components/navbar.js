@@ -35,9 +35,9 @@ export default function Navbar({currentPage}) {
                 { name: "Management", link: "/management",
                     subNav: [
                         { name: "Manage Events", link: "/manage-events" },
-                        { name: "Manage Volunteers", link: "/manage-volunteers" },
+                        { name: "Manage Volunteers", link: "../specific-page/manage-volunteers" },
                         { name: "Manage Users", link: "../specific-page/manage-users"},
-                        { name: "Account", link: "/mange-account"},
+                        { name: "Account", link: "/account"},
                     ]
                 },
             ]);
@@ -82,7 +82,7 @@ export default function Navbar({currentPage}) {
             <ul className={`${
               isMobileMenuOpen ? "flex flex-col" : "hidden md:flex"
               } ml-8 p-1 h-full my-0 py-0 md:flex-row md:h-fit`}
-              style={{zIndex: 1}}>
+            >
                 {navList.map((navItem) => (
                     <div key={navItem.name}>
                     {navItem.name === 'Management' ? (

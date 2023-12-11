@@ -65,24 +65,40 @@ export default function EventCard({ event, showDetails, passAttend, passVoluntee
                 <div className="p-6">
                     <p className="textColor">{event.description}</p>
                     <hr className="mx-1 my-3 bg-slate-400 "/>
-                    <div className="flex">
-                        <div className="w-1/3">
-                            {event.eventDate && <p className="textColor">Event Date:</p>}
-                            {/* <p className="textColor">Date Created: {event.dateCreated}</p> */}
-                            {event.creator && <p className="textColor">Creator:</p>}
-                            {/* <p className="textColor">Date Updated: {event.dateUpdated}</p> */}
-                            <p className="textColor">Attendees: </p>
-                            <p className="textColor">Volunteers:</p>
+                    <div className="flex flex-col">
+                        <div className="w-full flex justify-between">
+                            <div className="">
+                                {event.eventDate && <p className="textColor">Event Date: </p>}
+                            </div>
+                            <div className="">
+                                {event.eventDate && <p className="textColor">{event.eventDate}</p>}
+                            </div>
                         </div>
-                        <div className="w-2/3 text-right pr-1">
-                            {event.eventDate && <p className="textColor">{event.eventDate}</p>}
-                            {/* <p className="textColor">{event.creator}</p> */}
-                            {event.creator && <p className="textColor">{event.creator}</p>}
-                            {/* <p className="textColor">{event.dateUpdated}</p> */}
-                            {event.attendees != "" ? (<p className="textColor">{event.attendees.length}</p>)
-                            : (<p className="textColor">0</p>)}
-                            {event.volunteers != "" ? (<p className="textColor">{event.volunteers.length}</p>)
-                            : (<p className="textColor">0</p>)}
+                        <div className="w-full flex justify-between">
+                            <div className="">
+                                {event.creator && <p className="textColor">Creator: </p>}
+                            </div>
+                            <div className="">
+                                {event.creator && <p className="textColor">{event.creator}</p>}
+                            </div>
+                        </div>
+                        <div className="w-full flex justify-between">
+                            <div className="">
+                                <p className="textColor">Attendees: </p>
+                            </div>
+                            <div className="">
+                                {event.attendees != "" ? (<p className="textColor">{event.attendees.length}</p>)
+                                : (<p className="textColor">0</p>)}
+                            </div>
+                        </div>
+                        <div className="w-full flex justify-between">
+                            <div className="">
+                                <p className="textColor">Volunteers:</p>
+                            </div>
+                            <div className="">
+                                {event.volunteers != "" ? (<p className="textColor">{event.volunteers.length}</p>)
+                                : (<p className="textColor">0</p>)}
+                            </div>
                         </div>
                     </div>
 
