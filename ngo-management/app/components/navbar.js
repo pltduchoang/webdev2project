@@ -27,7 +27,7 @@ export default function Navbar({currentPage}) {
     }, [currentPage]);
 
     useEffect(() => {
-        if (user && role === "admin") {
+        if (user) {
           console.log("from navbar: ", user);
             setNavList([
                 { name: "Home", link: "/common-pages" },
