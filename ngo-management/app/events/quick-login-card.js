@@ -141,7 +141,6 @@ export default function QuickLoginCard ({signUpState, onLogin}) {
               {user !== null && (
                 <div>
                   <p className="text-green-500">You are signed in as {user.email}.</p>
-                  <p className="text-green-500 text-lg">Please manually refresh the page for proper functionality.</p>
                 </div>
               )}
               {errorMessages && (
