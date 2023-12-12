@@ -11,12 +11,31 @@ export default function QuickLoginCard ({signUpState, onLogin}) {
 
     const handleSignIn = (event) => {
         event.preventDefault();
+       
         emailSignIn(email, password);
-        setTimeout(() => {
-          onLogin();
-        }, 3000);
     };
 
+    const handleGithub = () => {
+        gitHubSignIn();
+    };
+
+    const handleGoogle = () => {
+        googleSignIn();
+    };
+
+    const forceReload = () => {
+      setTimeout(() => {
+        onLogin();
+      }, 2000);
+    }
+    
+    useEffect(() => {
+      if (user) {
+        forceReload();
+      }
+    }, [user]);
+
+    
     const handleSignUp = () => {
       // setEmail('');
       // setPassword('');  
@@ -129,11 +148,11 @@ export default function QuickLoginCard ({signUpState, onLogin}) {
                 <p className="text-red-500">{errorMessages}</p>
               )}
               <div className="flex justify-between items-center mb-4">
-                <button disabled={user != null} type="submit" className="w-6/12 itemColor textColor rounded-lg mt-4 py-4 opacity-80 transition duration-300 ease-in-out hover:opacity-100">Sign In</button>
+                <button disabled={user != null} type="submit" className="w-full itemColor textColor rounded-lg mt-4 py-4 opacity-80 transition duration-300 ease-in-out hover:opacity-100">Sign In</button>
                 {user !== null ?(
-                  <button onClick={firebaseSignOut} className="w-5/12 itemColor textColor rounded-lg mt-4 py-4 opacity-80 transition duration-300 ease-in-out hover:opacity-100">Sign Out</button>
+                  <button onClick={firebaseSignOut} className="w-5/12 itemColor textColor rounded-lg mt-4 py-4 opacity-80 transition duration-300 ease-in-out hover:opacity-100 hidden">Sign Out</button>
                 ):(
-                  <button onClick={handleSignUp} className="w-5/12 itemColor textColor rounded-lg mt-4 py-4 opacity-80 transition duration-300 ease-in-out hover:opacity-100">Sign Up</button>
+                  <button onClick={handleSignUp} disabled={true} className="w-5/12 itemColor textColor rounded-lg mt-4 py-4 opacity-80 transition duration-300 ease-in-out hover:opacity-100 hidden">Sign Up</button>
                 )
                 }
               </div>
@@ -143,8 +162,8 @@ export default function QuickLoginCard ({signUpState, onLogin}) {
           <div>
             <h2 className="text-2xl font-semibold mb-6 ml-2">Or sign in with:</h2>
             <div className="flex flex-col space-y-6">
-              <button onClick={gitHubSignIn} className="w-full itemColor textColor rounded-lg py-4 opacity-80 transition duration-300 ease-in-out hover:opacity-100">GitHub</button>
-              <button onClick={googleSignIn} className="w-full itemColor textColor rounded-lg py-4 opacity-80 transition duration-300 ease-in-out hover:opacity-100">Google</button>
+              <button onClick={handleGithub} className="w-full itemColor textColor rounded-lg py-4 opacity-80 transition duration-300 ease-in-out hover:opacity-100">GitHub</button>
+              <button onClick={handleGoogle} className="w-full itemColor textColor rounded-lg py-4 opacity-80 transition duration-300 ease-in-out hover:opacity-100">Google</button>
             </div>
           </div>
         </div>

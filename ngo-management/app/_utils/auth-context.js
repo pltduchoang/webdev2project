@@ -26,7 +26,9 @@ export const AuthContextProvider = ({ children }) => {
       if (currentUser) {
         setUser(currentUser);
         const profile = await getUserByUid(currentUser.uid);
-        setRole(profile.role);
+        if(profile){
+          setRole(profile.role);
+        }
       } else {
         setUser(null);
         setRole(null);
@@ -35,14 +37,96 @@ export const AuthContextProvider = ({ children }) => {
     return () => unsubscribe();
   }, [user]);
 
-  const gitHubSignIn = () => {
-    const provider = new GithubAuthProvider();
-    return signInWithPopup(auth, provider);
+  const gitHubSignIn = async () => {
+    try {
+      const provider = new GithubAuthProvider();
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      
+      // Check if the user exists in your database
+      const profile = await getUserByUid(user.uid);
+      
+      if (!profile) {
+        // If the user profile doesn't exist, create a new profile in your database
+        const newUser = {
+          firstName:'',
+          lastName: '',
+          email: user.email,
+          // Other details you want to set in the user profile
+          role: 'guest', // or assign roles based on Google sign-in
+          createdAt: new Date(),
+          phone: '',
+          addressLine1: '',
+          addressLine2: '',
+          city: '',
+          province: '',
+          postalCode: '',
+          birthday: '',
+          // ...
+        };
+        
+        // Create the user profile in the database
+        await createUserProfile(user.uid, newUser);
+
+        setRole('guest');
+
+      }
+      else {
+        setRole(profile.role);
+      }
+      
+      setUser(user);
+      setErrorMessages(null);
+    } catch (error) {
+      // Handle GitHub sign-in errors
+      setErrorMessages('Error signing in with GitHub');
+      console.error('GitHub Sign-In Error:', error);
+    }
   };
 
-  const googleSignIn = () => {
-    const provider = new GoogleAuthProvider();
-    return signInWithPopup(auth, provider);
+  const googleSignIn = async () => {
+    try {
+      const provider = new GoogleAuthProvider();
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      
+      // Check if the user exists in your database
+      const profile = await getUserByUid(user.uid);
+      
+      if (!profile) {
+        // If the user profile doesn't exist, create a new profile in your database
+        const newUser = {
+          firstName: '',
+          lastName: '',
+          email: user.email,
+          // Other details you want to set in the user profile
+          role: 'guest', // or assign roles based on Google sign-in
+          createdAt: new Date(),
+          phone: '',
+          addressLine1: '',
+          addressLine2: '',
+          city: '',
+          province: '',
+          postalCode: '',
+          birthday: '',
+          // ...
+        };
+        
+        // Create the user profile in the database
+        await createUserProfile(user.uid, newUser);
+
+        setRole('guest');
+      } else {
+        setRole(profile.role);
+      }
+      
+      setUser(user);
+      setErrorMessages(null);
+    } catch (error) {
+      // Handle Google sign-in errors
+      setErrorMessages('Error signing in with Google');
+      console.error('Google Sign-In Error:', error);
+    }
   };
 
 
@@ -87,7 +171,7 @@ export const AuthContextProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, role, gitHubSignIn, googleSignIn, emailSignIn, firebaseSignOut, errorMessages,}}
+      value={{ user, role, setRole, gitHubSignIn, googleSignIn, emailSignIn, firebaseSignOut, errorMessages,}}
     >
       {children}
     </AuthContext.Provider>

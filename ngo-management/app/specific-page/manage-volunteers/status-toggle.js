@@ -1,11 +1,13 @@
 "use client";
 import { useState, useEffect } from "react";
 import { getEvents } from "@/app/_services/event-services";
+import { useUserAuth } from "@/app/_utils/auth-context";
 
 
 
 export default function StatusToggle({currentVolunteerEmail, currentWorkingEvent ,onChange}){
 
+    const { user } = useUserAuth();
     const [activeStatus, setActiveStatus] = useState(false);
     const [busy, setBusy] = useState(false);
     const [allEventsList, setAllEventsList] = useState(); //[event, setEvent
@@ -76,6 +78,17 @@ export default function StatusToggle({currentVolunteerEmail, currentWorkingEvent
             determineStatus();
         }
     },[allEventsList]);
+
+    useEffect(() => {
+        console.log('currentWorkingEvent at toggle', currentWorkingEvent);
+        console.log('currentVolunteerEmail at toggle', currentVolunteerEmail);
+        console.log('all event at toggle', allEventsList);
+        
+        if (allEventsList){
+            setBusy(CheckIfVolunteerBusy(currentVolunteerEmail, currentWorkingEvent));
+            determineStatus();
+        }
+    },[user]);
 
     useEffect(() => {
         getAllEvents();

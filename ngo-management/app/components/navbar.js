@@ -82,7 +82,6 @@ export default function Navbar({currentPage}) {
             <ul className={`${
               isMobileMenuOpen ? "flex flex-col" : "hidden md:flex"
               } ml-8 p-1 h-full my-0 py-0 md:flex-row md:h-fit`}
-              style={{zIndex: 2}}
             >
                 {navList.map((navItem) => (
                     <div key={navItem.name}>

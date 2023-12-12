@@ -11,17 +11,12 @@ export default function EventCard({ event, showDetails, passAttend, passVoluntee
     const [eventVolunteeredCheck, setEventVolunteeredCheck] = useState(false);
     const [showTips, setShowTips] = useState(false);
 
-
-
-
-
-    
     const HandleAttend = () => {
         passAttend(event);
     };
 
     const HandleVolunteer = () => {
-        if (role === "guest") {
+        if (role !== "volunteer" && role !== "admin") {
             return;
         }
         passVolunteer(event);

@@ -5,10 +5,13 @@ import { auth } from '../_utils/firebase';
 import { createUserProfile } from '../_services/user-services';
 import PassWordInputField from './password-input-field';
 import { sendEmailVerification } from "firebase/auth";
+import { useUserAuth } from '../_utils/auth-context';
 
 
 
 export default function SignUpForm({signUpCompleted}) {
+
+    const { user, role , setRole} = useUserAuth();
 
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -87,6 +90,7 @@ export default function SignUpForm({signUpCompleted}) {
           try {
             // Create the user with email and password
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const defaultRole = isVolunteer ? 'volunteer' : 'guest';
             const newUser = {
                 firstName,
                 lastName,
@@ -97,7 +101,7 @@ export default function SignUpForm({signUpCompleted}) {
                 city: '',
                 province: '',
                 postalCode: '',
-                role: isVolunteer ? 'volunteer' : 'guest',
+                role: defaultRole,
                 createAt: new Date(),
                 birthday: '',
               // You may add other details here as needed
@@ -106,7 +110,10 @@ export default function SignUpForm({signUpCompleted}) {
             // Save user profile to Firestore
             
             await createUserProfile(userCredential.user.uid, newUser); // Define createUserProfile function
-    
+            console.log('role', defaultRole);
+
+            setRole(defaultRole);
+            console.log('role', role);
             signUpCompleted(); // Trigger the completion callback after successful signup
           
         } catch (error) {

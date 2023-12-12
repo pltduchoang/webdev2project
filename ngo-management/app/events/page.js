@@ -61,6 +61,11 @@ export default function Page() {
     const handleLoginFromCard = (e) => {
         setShowLogInCard(e);
     }
+
+    const handleLogin = () => {
+        setShowLogInCard(false);
+        window.location.reload(true);
+    }
     
     const currentPage = "Events" //pass current page to banner nav for styling
     return (
@@ -144,7 +149,7 @@ export default function Page() {
                     onClick={(e) => e.stopPropagation()}
                     style={{zIndex: 2}}
                 >
-                    <QuickLoginCard onLogin={() => setShowLogInCard(false)}/>
+                    <QuickLoginCard onLogin={handleLogin}/>
                 </div>
                 <div className="fixed bottom-20 right-8" style={{zIndex: 1}}>
                 <button onClick={() => setShowLogInCard(false)} className="itemColor textColor opacity-80 rounded-full p-4 shadow-lg transition duration-300 ease-in-out focus:outline-none hover:opacity-100">

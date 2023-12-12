@@ -15,7 +15,20 @@ export default function LogInCard ({signUpState}) {
     const handleSignIn = (event) => {
         event.preventDefault();
         emailSignIn(email, password);
+        
     };
+
+    const handleGitHub = () => {
+        gitHubSignIn();
+
+    };
+
+    const handleGoogle = () => {
+        googleSignIn();
+
+    };
+
+
 
     const handleSignUp = () => {
       // setEmail('');
@@ -172,8 +185,8 @@ export default function LogInCard ({signUpState}) {
           <div>
             <h2 className="text-2xl font-semibold mb-6 ml-2">Or sign in with:</h2>
             <div className="flex flex-col space-y-6">
-              <button onClick={gitHubSignIn} className="w-full itemColor textColor rounded-lg py-4 opacity-80 transition duration-300 ease-in-out hover:opacity-100">GitHub</button>
-              <button onClick={googleSignIn} className="w-full itemColor textColor rounded-lg py-4 opacity-80 transition duration-300 ease-in-out hover:opacity-100">Google</button>
+              <button onClick={handleGitHub} className="w-full itemColor textColor rounded-lg py-4 opacity-80 transition duration-300 ease-in-out hover:opacity-100">GitHub</button>
+              <button onClick={handleGoogle} className="w-full itemColor textColor rounded-lg py-4 opacity-80 transition duration-300 ease-in-out hover:opacity-100">Google</button>
             </div>
           </div>
         </div>

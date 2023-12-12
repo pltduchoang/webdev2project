@@ -1,11 +1,14 @@
 "use client";
+import { useEffect } from "react";
 import { useUserAuth } from "../_utils/auth-context";
 import BackgroundImage from "../components/background-image";
 import BannerNav from "../components/banner-nav"
 import Footer from "../components/footer"
 
 export default function Page() {
-    const { user } = useUserAuth();
+    const { user, role } = useUserAuth();
+
+
 
     const currentPage = "Home" //pass current page to banner nav for styling
     return (
