@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import fetchRandomImage from "../_services/unsplashservices"
 
-export default function BackgroundImage ({passPhotographer}) {
+export default function BackgroundImage ({}) {
     
     const [imageUrl, setImageUrl] = useState('');
     const [photographer, setPhotographer] = useState('');

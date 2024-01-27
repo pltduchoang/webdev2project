@@ -53,7 +53,8 @@ export default function Navbar({currentPage}) {
     return(
       <nav className=" h-12 flex items-center itemColor relative">
             {isMobileMenuOpen && (
-              <div className="absolute top-0 left-8 itemColor w-44 h-48 md:hidden">
+              <div className="absolute top-0 left-8 itemColor w-44 h-48 md:hidden"
+              style={{zIndex:-1}}>
               </div>
             )}
             <div className="md:hidden absolute top-2 left-2">
