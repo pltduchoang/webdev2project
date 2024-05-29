@@ -19,7 +19,17 @@ export default function Page() {
                 <p>The powerful management tools for your organization are here</p>
                 <p>We are ready!</p>
                 <hr className="mx-20 my-20 bg-slate-400 "/>
-                <h2 className="text-center textColor text-3xl">This page is under construction</h2>
+                <h2 className="text-center textColor text-2xl">This project aim to help NGO to manage their volunteers and organize events</h2>
+                <p className="textColor text-2xl">Main functionalities includes:</p>
+                <ul className="textColor text-lg pt-10">
+                    <li>Manage and assign volunteers</li>
+                    <li>Organize events</li>
+                    <li>Allow user to attend events</li>
+                    <li>Allow volunteers to register to events</li>
+                </ul>
+
+                <p className="textColor text-2xl pt-20">Feel free to explore around!!</p>
+                <p className="textColor text-2xl pt-10">NOTE: Please do not delete any existing entries, you may create new events, and after exploring, delete what you created</p>
             </div>
             <hr className="mx-20 bg-slate-400 "/>
             <BackgroundImage/>

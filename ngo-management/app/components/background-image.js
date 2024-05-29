@@ -35,7 +35,7 @@ export default function BackgroundImage ({}) {
 
     return(
         <main>
-            <div className="min-h-screen backgroundLightColor opacity-70 w-full fixed top-0 left-0"
+            <div className="min-h-screen backgroundLightColor opacity-80 w-full fixed top-0 left-0"
                 style={{zIndex: -1}}>  
             </div>
             {imageUrl && (

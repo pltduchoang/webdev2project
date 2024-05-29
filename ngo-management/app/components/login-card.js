@@ -7,15 +7,21 @@ import {getAuth, sendPasswordResetEmail} from "firebase/auth";
 
 export default function LogInCard ({signUpState}) {
     const { user, gitHubSignIn, googleSignIn, emailSignIn, firebaseSignOut, errorMessages} = useUserAuth();
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('matrixboy10@gmail.com');
+    const [password, setPassword] = useState('Abc@2024');
 
     const [forgotPasswordForm, setForgotPasswordForm] = useState(false);
+
+    useEffect(() => {
+      if(email === '') {
+        setEmail('matrixboy10@gmail.com');
+        setPassword('Abc@2024');
+      }
+    }, []);
 
     const handleSignIn = (event) => {
         event.preventDefault();
         emailSignIn(email, password);
-        
     };
 
     const handleGitHub = () => {
@@ -27,8 +33,6 @@ export default function LogInCard ({signUpState}) {
         googleSignIn();
 
     };
-
-
 
     const handleSignUp = () => {
       // setEmail('');
@@ -77,11 +81,7 @@ export default function LogInCard ({signUpState}) {
         console.error(error);
       };
     };
-    // Password validation on submit
-    useEffect(() => {
-        setEmail('');
-        setPassword('');
-    }, []);
+
     
     
 

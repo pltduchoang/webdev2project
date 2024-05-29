@@ -15,6 +15,7 @@ export default function Home() {
   const { user, firebaseSignOut } = useUserAuth();
   const [showLoggedInMessage, setShowLoggedInMessage] = useState(false);
   const [showSignUpForm, setShowSignUpForm] = useState(false);
+  const [visitorMessage, setVisitorMessage] = useState(true);
     //popup a message after 2 seconds if user is logged in
     
     useEffect(() => {
@@ -48,7 +49,7 @@ export default function Home() {
   };
 
   return (
-    <main> 
+    <main className=""> 
       <div className="flex items-center p-6 backgroundDarkColor">
         <div className="w-8/12 pl-6 flex items-center"> 
             <Logo/>
@@ -70,7 +71,7 @@ export default function Home() {
         <div className="fixed inset-0 flex items-center justify-center backgroundDarkColor bg-opacity-75" style={{ zIndex: 3 }} onClick={handleModalClose}>
           <div className="backgroundLightColor p-6 rounded shadow-md textColor">
             {user.emailVerified ? (
-              <p>You are logged in as<Link className='py-1 px-2 transition duration-300 ease-in-out hover:bg-orange-500 rounded-md myBorder text-sm' href='/common-pages' >Click here to proceed.</Link></p>
+              <p>You are logged in as {user.email}<Link className='py-1 px-2 transition duration-300 ease-in-out hover:bg-orange-500 rounded-md myBorder text-sm' href='/common-pages' >Click here to proceed.</Link></p>
             ) : (
               <div className="flex flex-col justify-center">
                 <p>You are logged in but your email is not verified. Please check your email for the verification link.</p>
@@ -82,6 +83,17 @@ export default function Home() {
                 </button>
               </div>
             )}
+          </div>
+        </div>
+      )}
+      {visitorMessage && (
+        <div className="fixed inset-0 flex items-center justify-center backgroundDarkColor bg-opacity-75" style={{ zIndex: 3 }} onClick={handleModalClose}>
+          <div className="backgroundLightColor p-6 rounded shadow-md textColor">
+            <div className="flex flex-col justify-center items-center space-y-8">
+              <p>Hi there! thank you for visiting my website</p>
+              <p>A sign-in credential is already filled in so that you can skip the sign-up stage if you wish to, feel free to click sign-in and start exploring</p>
+              <button className='py-2 px-3 transition duration-300 ease-in-out hover:bg-orange-500 rounded-md myBorder text-sm w-48' onClick={() =>setVisitorMessage(false)}>Click here to proceed.</button>
+            </div>
           </div>
         </div>
       )}

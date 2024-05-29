@@ -14,7 +14,7 @@ export default function PassWordInputField({ label, sendFocusStatus , ...rest })
       setFocused(false);
       sendFocusStatus(false);
     }
-    sendFocusStatus(false);
+    sendFocusStatus(true);
   };
 
   return (
