@@ -7,14 +7,14 @@ import {getAuth, sendPasswordResetEmail} from "firebase/auth";
 
 export default function LogInCard ({signUpState}) {
     const { user, gitHubSignIn, googleSignIn, emailSignIn, firebaseSignOut, errorMessages} = useUserAuth();
-    const [email, setEmail] = useState('matrixboy10@gmail.com');
+    const [email, setEmail] = useState('plt.duchoang@gmail.com');
     const [password, setPassword] = useState('Abc@2024');
 
     const [forgotPasswordForm, setForgotPasswordForm] = useState(false);
 
     useEffect(() => {
       if(email === '') {
-        setEmail('matrixboy10@gmail.com');
+        setEmail('plt.duchoang@gmail.com');
         setPassword('Abc@2024');
       }
     }, []);
